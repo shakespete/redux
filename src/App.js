@@ -1,10 +1,11 @@
 import React, {useEffect} from 'react';
 import { connect } from 'react-redux';
 import TasksPage from './components/TasksPage';
+import FlashMessage from './components/FlashMessage';
 import { createTask, editTask, fetchTasks } from './actions';
 
 
-const App = ({ tasks, isLoading, dispatch }) => {
+const App = ({ tasks, isLoading, error, dispatch }) => {
   // console.log(props); // Because of 'connect' App has dispatch
   // Similar to componentDidMount and componentDidUpdate:
   useEffect(() => {
@@ -22,6 +23,7 @@ const App = ({ tasks, isLoading, dispatch }) => {
 
   return (
     <div className="main-content">
+      {error && <FlashMessage message={error} />}
       <TasksPage
         tasks={tasks}
         onCreateTask={onCreateTask}
@@ -35,8 +37,8 @@ const App = ({ tasks, isLoading, dispatch }) => {
 const mapStateToProps = (state) => {
   console.log("3: MAP STATE TO PROPS");
   console.log(state);
-  const { tasks, isLoading } = state.tasks;
-  return { tasks, isLoading };
+  const { tasks, isLoading, error } = state.tasks;
+  return { tasks, isLoading, error };
 }
 
 export default connect(mapStateToProps)(App);

@@ -14,6 +14,14 @@ export const fetchTasksSucceeded = tasks => {
     }
   }
 }
+function fetchTasksFailed(error) {
+  return {
+    type: 'FETCH_TASKS_FAILED',
+    payload: {
+      error,
+    },
+  };
+}
 export const fetchTasks = () => {
   return dispatch => {
     dispatch(fetchTasksStarted());
@@ -22,6 +30,10 @@ export const fetchTasks = () => {
       setTimeout(() => {
         dispatch(fetchTasksSucceeded(resp.data));
       }, 2000);
+      // throw new Error('Oh noes! Unable to fetch tasks!');
+    })
+    .catch(err => {
+      dispatch(fetchTasksFailed(err.message));
     });
   }
 }
