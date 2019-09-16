@@ -44,6 +44,14 @@ const createTaskSucceeded = (task) => {
     payload: {
       task,
     },
+    meta: {
+      analytics: {
+        event: 'create_task',
+        data: {
+          id: task.id,
+        },
+      },
+    },
   };
 }
 export const createTask = ({ title, description, status = 'Unstarted' }) => {

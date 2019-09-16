@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom';
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
+import logger from './middleware/logger';
+import analytics from './middleware/analytics';
 import {tasksReducer} from './reducers';
 import App from './App';
 import { composeWithDevTools } from 'redux-devtools-extension';
@@ -25,9 +27,12 @@ const rootReducer = (state = {}, action) => {
   };
 };
 
+
+// Redux middleware is code that sits between an action being dispatched and
+// the store passing the action to the reducer and broadcasting the updated state.
 const store = createStore(
   rootReducer,
-  composeWithDevTools(applyMiddleware(thunk))
+  composeWithDevTools(applyMiddleware(thunk, logger, analytics))
 );
 
 ReactDOM.render(
