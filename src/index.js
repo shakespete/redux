@@ -5,6 +5,7 @@ import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import logger from './middleware/logger';
 import analytics from './middleware/analytics';
+import apiMiddleware from './middleware/api';
 import {tasksReducer} from './reducers';
 import App from './App';
 import { composeWithDevTools } from 'redux-devtools-extension';
@@ -32,7 +33,7 @@ const rootReducer = (state = {}, action) => {
 // the store passing the action to the reducer and broadcasting the updated state.
 const store = createStore(
   rootReducer,
-  composeWithDevTools(applyMiddleware(thunk, logger, analytics))
+  composeWithDevTools(applyMiddleware(thunk, apiMiddleware, logger, analytics))
 );
 
 ReactDOM.render(

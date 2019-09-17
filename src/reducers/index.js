@@ -15,11 +15,18 @@ export function tasksReducer(state = initialState, action) {
         isLoading: true,
       };
     }
+    // case 'FETCH_TASKS_SUCCEEDED': {
+    //   return {
+    //     ...state,
+    //     isLoading: false,
+    //     tasks: action.payload.tasks,
+    //   };
+    // }
     case 'FETCH_TASKS_SUCCEEDED': {
       return {
         ...state,
+        tasks: action.payload,
         isLoading: false,
-        tasks: action.payload.tasks,
       };
     }
     case 'FETCH_TASKS_FAILED': {

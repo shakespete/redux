@@ -1,4 +1,33 @@
 import * as api from '../api'; 
+import { CALL_API } from '../middleware/api';
+
+export const FETCH_TASKS_STARTED = 'FETCH_TASKS_STARTED';
+export const FETCH_TASKS_SUCCEEDED = 'FETCH_TASKS_SUCCEEDED';
+export const FETCH_TASKS_FAILED = 'FETCH_TASKS_FAILED';  
+
+// export const fetchTasks = () => {
+//   return dispatch => {
+//     dispatch(fetchTasksStarted());
+
+//     api.fetchTasks().then(resp => {
+//       setTimeout(() => {
+//         dispatch(fetchTasksSucceeded(resp.data));
+//       }, 2000);
+//       // throw new Error('Oh noes! Unable to fetch tasks!');
+//     })
+//     .catch(err => {
+//       dispatch(fetchTasksFailed(err.message));
+//     });
+//   }
+// }
+export const fetchTasks = () => {
+  return {
+    [CALL_API]: {
+      types: [FETCH_TASKS_STARTED, FETCH_TASKS_SUCCEEDED, FETCH_TASKS_FAILED],
+      endpoint: '/tasks',
+    },
+  };
+}
 
 export const fetchTasksStarted = () => {
   return {
@@ -22,21 +51,7 @@ function fetchTasksFailed(error) {
     },
   };
 }
-export const fetchTasks = () => {
-  return dispatch => {
-    dispatch(fetchTasksStarted());
 
-    api.fetchTasks().then(resp => {
-      setTimeout(() => {
-        dispatch(fetchTasksSucceeded(resp.data));
-      }, 2000);
-      // throw new Error('Oh noes! Unable to fetch tasks!');
-    })
-    .catch(err => {
-      dispatch(fetchTasksFailed(err.message));
-    });
-  }
-}
 
 const createTaskSucceeded = (task) => {
   return {
