@@ -6,8 +6,9 @@ const initialState = {
 };
 
 export function tasksReducer(state = initialState, action) {
-  console.log("2: TASKS REDUCER");
+  console.group("2: TASKS REDUCER");
   console.log(state);
+  console.groupEnd();
   switch (action.type) {
     case 'FETCH_TASKS_STARTED': {
       return {

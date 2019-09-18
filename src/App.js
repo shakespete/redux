@@ -35,8 +35,9 @@ const App = ({ tasks, isLoading, error, dispatch }) => {
 }
 
 const mapStateToProps = (state) => {
-  console.log("3: MAP STATE TO PROPS");
+  console.group("3: MAP STATE TO PROPS");
   console.log(state);
+  console.groupEnd();
   const { tasks, isLoading, error } = state.tasks;
   return { tasks, isLoading, error };
 }

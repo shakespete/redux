@@ -22,13 +22,19 @@ function fetchTasksFailed(error) {
     },
   };
 }
+
+// Within the fetchTasks action creator, an anonymous function (thunk)
+// is returned. The thunk middleware provides the dispatch and getState
+// arguments, so the body of the function can view the contents of the
+// current store and dispatch new actions to indicate loading, success,
+// or failure states.
 export const fetchTasks = () => {
-  return dispatch => {
-    dispatch(fetchTasksStarted());
+  return (dispatch, getState) => {  // The action creator returns a function, also known as a thunk.
+    dispatch(fetchTasksStarted());  // Within the thunk, more action creators can be dispatched.
 
     api.fetchTasks().then(resp => {
       setTimeout(() => {
-        dispatch(fetchTasksSucceeded(resp.data));
+        dispatch(fetchTasksSucceeded(resp.data)); // Based on the results of a side effect, more dispatching may occur.
       }, 2000);
       // throw new Error('Oh noes! Unable to fetch tasks!');
     })

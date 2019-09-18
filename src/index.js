@@ -17,8 +17,9 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 // A rootReducer function accepts the current
 // state of the store and an action.
 const rootReducer = (state = {}, action) => {
-  console.log("1: ROOT REDUCER");
+  console.group("1: ROOT REDUCER");
   console.log(state);
+  console.groupEnd();
   return {
     tasks: tasksReducer(state.tasks, action),
     // projects: projectsReducer(state.projects, action),
