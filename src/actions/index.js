@@ -6,6 +6,13 @@ export const fetchTasksStarted = () => {
   };
 }
 
+/* -- REPLACED BY SAGA --
+export const fetchTasksStarted = () => {
+  return {
+    type: 'FETCH_TASKS_STARTED',
+  };
+}
+
 export const fetchTasksSucceeded = tasks => {
   return {
     type: 'FETCH_TASKS_SUCCEEDED',
@@ -34,7 +41,8 @@ export const fetchTasks = () => {
 
     api.fetchTasks().then(resp => {
       setTimeout(() => {
-        dispatch(fetchTasksSucceeded(resp.data)); // Based on the results of a side effect, more dispatching may occur.
+        // Based on the results of a side effect, more dispatching may occur.
+        dispatch(fetchTasksSucceeded(resp.data)); 
       }, 2000);
       // throw new Error('Oh noes! Unable to fetch tasks!');
     })
@@ -44,6 +52,18 @@ export const fetchTasks = () => {
   }
 }
 
+export const fetchTasks = () => {
+  return (dispatch, getState) => {
+    dispatch(fetchTasksStarted())
+  }
+}
+*/
+
+export const fetchTasks = () => {
+  return {
+    type: 'FETCH_TASKS_STARTED',
+  };
+}
 const createTaskSucceeded = (task) => {
   return {
     type: 'CREATE_TASK_SUCCEEDED',

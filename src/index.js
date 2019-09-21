@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom';
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
+import createSagaMiddleware from 'redux-saga';
+import rootSaga from './sagas';
 import {tasksReducer} from './reducers';
 import App from './App';
 import { composeWithDevTools } from 'redux-devtools-extension';
@@ -26,10 +28,18 @@ const rootReducer = (state = {}, action) => {
   };
 };
 
+const sagaMiddleware = createSagaMiddleware();
+
 const store = createStore(
   rootReducer,
-  composeWithDevTools(applyMiddleware(thunk))
+  composeWithDevTools(applyMiddleware(thunk, sagaMiddleware))
 );
+
+// It may be helpful to think of sagas as subprograms, and the run function on
+// the last line of the listing is required for the subprogram to begin watching
+// for actions. Once the saga middleware is configured, you can run the top-level,
+// or root, saga.
+sagaMiddleware.run(rootSaga);
 
 ReactDOM.render(
   // The <Provider /> makes the Redux store available to any nested
