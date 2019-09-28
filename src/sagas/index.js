@@ -4,6 +4,7 @@ import * as api from '../api';
 // the root saga’s role will be to coordinate all other sagas
 // used in the application.
 export default function* rootSaga() {
+  console.group('ROOT SAGA');
   // Forking each watcher allows rootSaga to move on to the next one.
   // Each watcher is also a generator.
   /*
@@ -17,13 +18,14 @@ export default function* rootSaga() {
   // Each of these forks are said to be non-blocking. This implementation
   // makes sense, because you want to kick off all the watchers at
   // initialization, not only the first in the list.
-  
   yield takeLatest('FETCH_TASKS_STARTED', fetchTasks);
+  console.groupEnd();
 }
 
 // Sagas return effects, which are instructions for the saga middleware to perform.
 // Effects are plain objects.
 function* fetchTasks() {
+  console.group('fetchTasks SAGA');
   try {
     const { data } = yield call(api.fetchTasks);
     yield put({
@@ -36,6 +38,7 @@ function* fetchTasks() {
         payload: { error: e.message }
     });
   }
+  console.groupEnd();
 }
 
 // One common misconception for newcomers is that the logic you write 

@@ -1,18 +1,16 @@
 import * as api from '../api'; 
 
-export const fetchTasksStarted = () => {
-  return {
-    type: 'FETCH_TASKS_STARTED',
-  };
-}
-
 /* -- REPLACED BY SAGA --
 export const fetchTasksStarted = () => {
   return {
     type: 'FETCH_TASKS_STARTED',
   };
 }
-
+export const fetchTasksStarted = () => {
+  return {
+    type: 'FETCH_TASKS_STARTED',
+  };
+}
 export const fetchTasksSucceeded = tasks => {
   return {
     type: 'FETCH_TASKS_SUCCEEDED',
@@ -60,6 +58,7 @@ export const fetchTasks = () => {
 */
 
 export const fetchTasks = () => {
+  console.log('FETCH_TASKS_STARTED');
   return {
     type: 'FETCH_TASKS_STARTED',
   };

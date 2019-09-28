@@ -21,6 +21,7 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 const rootReducer = (state = {}, action) => {
   console.group("1: ROOT REDUCER");
   console.log(state);
+  console.log(`ACTION: ${action.type}`);
   console.groupEnd();
   return {
     tasks: tasksReducer(state.tasks, action),
