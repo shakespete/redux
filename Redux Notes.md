@@ -6,9 +6,11 @@ Redux is a predictable state container for JavaScript applications. Redux divide
 3) Functions known as reducers specify how to transform application state. Reducers are functions that take the current state in the store and an action, then return the next state after applying any updates.
 
 <h3>3 Principles</h3>
-1) **Single source of truth.** Redux manages an entire application’s state in one object, inside one store.
-2) **State is read-only.** Actions are the only way to initiate changes in application state. These actions don’t result in a mutation of the data in the store. Instead, each action results in a shiny, new instance of the state to replace the current one.
-3) **Changes are made with pure functions.** Actions are received by reducers. It’s important that these reducers be pure functions. Pure functions are deterministic; they always produce the same output given the same inputs, and they don’t mutate any data in the process. 
+<ol>
+  <li><strong>Single source of truth.</strong> Redux manages an entire application’s state in one object, inside one store.</li>
+  <li><strong>State is read-only.</strong> Actions are the only way to initiate changes in application state. These actions don’t result in a mutation of the data in the store. Instead, each action results in a shiny, new instance of the state to replace the current one.</li>
+  <li><strong>Changes are made with pure functions.</strong> Actions are received by reducers. It’s important that these reducers be pure functions. Pure functions are deterministic; they always produce the same output given the same inputs, and they don’t mutate any data in the process.</li>
+</ol>
 
 <h3>Actions</h3>
 Actions are plain old JavaScript objects that represent an event in your application.
