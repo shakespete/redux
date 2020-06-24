@@ -3,10 +3,20 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import TasksPage from "./components/TasksPage";
 
-const App = ({ tasks }) => {
+const App = ({ tasks, dispatch }) => {
+  const onCreateTask = ({ title, description }) => {
+    dispatch({
+      type: "CREATE_TASK",
+      payload: {
+        title,
+        description,
+      },
+    });
+  };
+
   return (
     <div className="main-content">
-      <TasksPage tasks={tasks} />
+      <TasksPage tasks={tasks} createTask={onCreateTask} />
     </div>
   );
 };
@@ -20,6 +30,7 @@ App.defaultProps = {
       status: "",
     })
   ),
+  dispatch: (f) => f,
 };
 App.propTypes = {
   tasks: PropTypes.arrayOf(
@@ -30,6 +41,7 @@ App.propTypes = {
       status: PropTypes.string,
     })
   ),
+  dispatch: PropTypes.func,
 };
 
 const mapStateToProps = ({ tasks }) => {

@@ -60,4 +60,21 @@ To connect Redux with React, you’ll use the React bindings from the react-redu
 Provider is a component that takes the store as a prop and wraps the top-level component in your app—in this case, App. Any child component rendered within Provider can access the Redux store, no matter how deeply it’s nested.
 
  <h3>mapStateToProps</h3>
- mapStateToProps function. Note that the name mapStateToProps is a convention, not a requirement. The name stuck for a reason: because it’s an effective descriptor of the role of this function. State refers to the data in the store, and props are what get passed to the connected component. Whatever you return from mapStateToProps will be passed to your component as props.
+ Note that the name mapStateToProps is a convention, not a requirement. The name stuck for a reason: because it’s an effective descriptor of the role of this function. State refers to the data in the store, and props are what get passed to the connected component. Whatever you return from mapStateToProps will be passed to your component as props.
+
+<h3>dispatch</h3>
+You know that the store is extremely protective of its data. It only provides one way to update state — dispatching an action. dispatch is part of the store’s API, and connect conveniently provides this function to your component as a prop. dispatch accepts an action object as an argument.
+
+<h3>actions</h3>
+The action will have two properties:
+<ol>
+  <li><strong>type</strong> — A string that represents the category of action being performed. By convention, they’re capitalized and use underscores as delimiters. This is the only required property for an action to be considered valid.</li>
+  <li><strong>payload</strong> — An object that provides the data necessary to perform the action. Having a payload field is optional and can be omitted if no additional data is required to perform the action. For example, an action to log a user out may contain a type of LOGOUT with no additional data requirements. If additional data is required, however, any keys may be passed in the action. </li>
+</ol>
+
+Actions and action creators are closely related and work together to dispatch actions to the store, but they fulfill different roles:
+<ol>
+  <li><strong>Actions</strong> — Objects that describe an event</li>
+  <li><strong>Action creators</strong> — Functions that return actions</li>
+</ol>
+Why use action creators? Action creators have a friendlier interface; all you need to know is which arguments the action creator function expects. You won’t have to worry about specifics, such as the shape of the action’s payload or any logic that might need to be applied before the action can be dispatched. By the same token, an action creator’s arguments are helpful because they clearly document an action’s data requirements.
