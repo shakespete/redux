@@ -2,16 +2,11 @@ import React from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import TasksPage from "./components/TasksPage";
+import { createTask } from "./actions";
 
 const App = ({ tasks, dispatch }) => {
   const onCreateTask = ({ title, description }) => {
-    dispatch({
-      type: "CREATE_TASK",
-      payload: {
-        title,
-        description,
-      },
-    });
+    dispatch(createTask({ title, description }));
   };
 
   return (

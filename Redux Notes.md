@@ -32,11 +32,12 @@ Actions have the advantage of serving as audits, which keep a historical record 
 Actions handle the what in this equation. They describe an event; they don’t know and don’t care what happens downstream.
 
 <h3>Reducer</h3>
-Reducers are functions responsible for updating your state in response to actions. They’re simple functions that take your current state and an action as arguments, and return the next state. Similar to all pure functions, they produce no side effects. They don’t affect the outside world in any way, and they’re referentially transparent. The same inputs will always yield the same return value.
+Reducers are functions responsible for updating your state in response to actions. They’re simple functions that take your current state and an action as arguments, and return the next state. Similar to all pure functions, they produce no side effects. They don’t affect the outside world in any way, and they’re referentially transparent. The same inputs will always yield the same return value. The real point of reducers is to handle actions. Reducers are functions that accept the store’s current state and an action and return the next state after applying any relevant updates.
 
 More sizable applications frequently implement several reducer functions, each concerned with a different slice of the state tree. These reducers are combined, or composed, into a single “root reducer.” Reducers describe how to update state in response to an action, but they can’t modify state directly.
 
 <h3>Store</h3>
+The store’s role is to manage application state; it’s where the data lives, it controls access, and it allows components to listen for updates.
 In Redux, application state is stored in a single object. The store has a few main roles, which follow:
 <ul>
   <li>Hold application state.</li>
@@ -77,4 +78,7 @@ Actions and action creators are closely related and work together to dispatch ac
   <li><strong>Actions</strong> — Objects that describe an event</li>
   <li><strong>Action creators</strong> — Functions that return actions</li>
 </ol>
+
 Why use action creators? Action creators have a friendlier interface; all you need to know is which arguments the action creator function expects. You won’t have to worry about specifics, such as the shape of the action’s payload or any logic that might need to be applied before the action can be dispatched. By the same token, an action creator’s arguments are helpful because they clearly document an action’s data requirements.
+
+You know you can’t do much without side effects. What you can do is isolate them by enforcing good practices around where they can be performed. Reducers must be pure functions, so they’re out. You guessed it, that leaves action creators!
