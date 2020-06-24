@@ -48,3 +48,16 @@ In Redux, application state is stored in a single object. The store has a few ma
 <h3>Redux Architecture</h3>
 
 ![alt text](https://github.com/shakespete/redux/blob/dev/img/redux_arch.jpg)
+
+<h3>react-redux</h3>
+To connect Redux with React, you’ll use the React bindings from the react-redux package. Redux provides only the means to configure a store. react-redux bridges the gap between React and Redux by providing the ability to enhance a component, allowing it to read state from the store or dispatch actions. react-redux gives you two primary tools for connecting your Redux store to React:
+
+<ol>
+  <li><strong>Provider</strong> — A React component that you’ll render at the top of the React app. Any components rendered as children of Provider can be granted access to the Redux store.</li>
+  <li><strong>connect</strong> — A function used as a bridge between React components and data from the Redux store.</li>
+</ol>
+
+Provider is a component that takes the store as a prop and wraps the top-level component in your app—in this case, App. Any child component rendered within Provider can access the Redux store, no matter how deeply it’s nested.
+
+ <h3>mapStateToProps</h3>
+ mapStateToProps function. Note that the name mapStateToProps is a convention, not a requirement. The name stuck for a reason: because it’s an effective descriptor of the role of this function. State refers to the data in the store, and props are what get passed to the connected component. Whatever you return from mapStateToProps will be passed to your component as props.

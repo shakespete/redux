@@ -1,27 +1,41 @@
 import React from "react";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
 import TasksPage from "./components/TasksPage";
 
-const mockTasks = [
-  {
-    id: 1,
-    title: "Learn Redux",
-    description: "The store, actions, and reducers, oh my!",
-    status: "In Progress",
-  },
-  {
-    id: 2,
-    title: "Peace on Earth",
-    description: "No big deal.",
-    status: "In Progress",
-  },
-];
-
-const App = () => {
+const App = ({ tasks }) => {
   return (
     <div className="main-content">
-      <TasksPage tasks={mockTasks} />
+      <TasksPage tasks={tasks} />
     </div>
   );
 };
 
-export default App;
+App.defaultProps = {
+  tasks: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: -1,
+      title: "",
+      description: "",
+      status: "",
+    })
+  ),
+};
+App.propTypes = {
+  tasks: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number,
+      title: PropTypes.string,
+      description: PropTypes.string,
+      status: PropTypes.string,
+    })
+  ),
+};
+
+const mapStateToProps = ({ tasks }) => {
+  return {
+    tasks,
+  };
+};
+
+export default connect(mapStateToProps)(App);
