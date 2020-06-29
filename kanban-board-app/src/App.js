@@ -2,16 +2,23 @@ import React from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import TasksPage from "./components/TasksPage";
-import { createTask } from "./actions";
+import { createTask, editTask } from "./actions";
 
 const App = ({ tasks, dispatch }) => {
   const onCreateTask = ({ title, description }) => {
     dispatch(createTask({ title, description }));
   };
+  const onStatusChange = (id, status) => {
+    dispatch(editTask(id, { status }));
+  };
 
   return (
     <div className="main-content">
-      <TasksPage tasks={tasks} createTask={onCreateTask} />
+      <TasksPage
+        tasks={tasks}
+        createTask={onCreateTask}
+        editStatus={onStatusChange}
+      />
     </div>
   );
 };

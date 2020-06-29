@@ -4,7 +4,7 @@ import TaskList from "./TaskList";
 
 const TASK_STATUSES = ["Unstarted", "In Progress", "Completed"];
 
-const TasksPage = ({ tasks, createTask }) => {
+const TasksPage = ({ tasks, createTask, editStatus }) => {
   const [showNewCardForm, setShowNewCardForm] = useState(false);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -39,7 +39,14 @@ const TasksPage = ({ tasks, createTask }) => {
   const renderTaskLists = () => {
     return TASK_STATUSES.map((status) => {
       const statusTasks = tasks.filter((task) => task.status === status);
-      return <TaskList key={status} status={status} tasks={statusTasks} />;
+      return (
+        <TaskList
+          key={status}
+          status={status}
+          tasks={statusTasks}
+          onStatusChange={editStatus}
+        />
+      );
     });
   };
 
@@ -84,6 +91,7 @@ TasksPage.defaultProps = {
     })
   ),
   createTask: (f) => f,
+  editStatus: (f) => f,
 };
 TasksPage.propTypes = {
   tasks: PropTypes.arrayOf(
@@ -95,6 +103,7 @@ TasksPage.propTypes = {
     })
   ),
   createTask: PropTypes.func,
+  editStatus: PropTypes.func,
 };
 
 export default TasksPage;

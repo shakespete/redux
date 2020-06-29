@@ -14,14 +14,14 @@ const ListTitleComponent = styled.div`
   margin-bottom: 5px;
 `;
 
-const TaskList = ({ status, tasks }) => {
+const TaskList = ({ status, tasks, onStatusChange }) => {
   return (
     <ListComponent>
       <ListTitleComponent>
         <strong>{status}</strong>
       </ListTitleComponent>
       {tasks.map((task) => (
-        <Task key={task.id} task={task} />
+        <Task key={task.id} task={task} statusChange={onStatusChange} />
       ))}
     </ListComponent>
   );
@@ -37,6 +37,7 @@ TaskList.defaultProps = {
       status: "",
     })
   ),
+  onStatusChange: (f) => f,
 };
 TaskList.propTypes = {
   status: PropTypes.string,
@@ -48,6 +49,7 @@ TaskList.propTypes = {
       status: PropTypes.string,
     })
   ),
+  onStatusChange: PropTypes.func,
 };
 
 export default TaskList;

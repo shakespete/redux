@@ -46,6 +46,8 @@ In Redux, application state is stored in a single object. The store has a few ma
   <li>Allow other entities to subscribe to updates (React components in this case). View bindings provided by react-redux will allow you to receive updates from the store and respond to them in your components.</li>
 </ul>
 
+Creating a new Redux store requires one or more reducers and, optionally, middleware. At least one reducer is required to create a store.
+
 <h3>Redux Architecture</h3>
 
 ![alt text](https://github.com/shakespete/redux/blob/dev/img/redux_arch.jpg)
@@ -61,7 +63,7 @@ To connect Redux with React, you’ll use the React bindings from the react-redu
 Provider is a component that takes the store as a prop and wraps the top-level component in your app—in this case, App. Any child component rendered within Provider can access the Redux store, no matter how deeply it’s nested.
 
  <h3>mapStateToProps</h3>
- Note that the name mapStateToProps is a convention, not a requirement. The name stuck for a reason: because it’s an effective descriptor of the role of this function. State refers to the data in the store, and props are what get passed to the connected component. Whatever you return from mapStateToProps will be passed to your component as props.
+ Note that the name mapStateToProps is a convention, not a requirement. The name stuck for a reason: because it’s an effective descriptor of the role of this function. State refers to the data in the store, and props are what get passed to the connected component. <strong>Whatever you return from mapStateToProps will be passed to your component as props.</strong>
 
 <h3>dispatch</h3>
 You know that the store is extremely protective of its data. It only provides one way to update state — dispatching an action. dispatch is part of the store’s API, and connect conveniently provides this function to your component as a prop. dispatch accepts an action object as an argument.
