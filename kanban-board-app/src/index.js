@@ -1,13 +1,14 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { createStore } from "redux";
+import { createStore, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
-import { devToolsEnhancer } from "redux-devtools-extension";
+import thunk from "redux-thunk";
+import { composeWithDevTools } from "redux-devtools-extension";
 import tasks from "./reducers";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 
-const store = createStore(tasks, devToolsEnhancer());
+const store = createStore(tasks, composeWithDevTools(applyMiddleware(thunk)));
 
 ReactDOM.render(
   <React.StrictMode>

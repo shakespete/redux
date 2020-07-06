@@ -1,10 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import TasksPage from "./components/TasksPage";
-import { createTask, editTask } from "./actions";
+import { createTask, editTask, fetchTasks } from "./actions";
 
 const App = ({ tasks, dispatch }) => {
+  useEffect(() => {
+    dispatch(fetchTasks());
+  }, []);
+
   const onCreateTask = ({ title, description }) => {
     dispatch(createTask({ title, description }));
   };

@@ -62,8 +62,19 @@ To connect Redux with React, you’ll use the React bindings from the react-redu
 
 Provider is a component that takes the store as a prop and wraps the top-level component in your app—in this case, App. Any child component rendered within Provider can access the Redux store, no matter how deeply it’s nested.
 
- <h3>createStore</h3>
- Redux’s createStore function takes up to three arguments: a reducer, an initial state, and an enhancer. In the case that only two arguments are passed, Redux presumes the second argument is an enhancer and there’s no initial state. Enhancers are a way to augment the Redux store and the devToolsEnhancer function is doing that: connecting the store with the Chrome extension to provide additional debugging features.
+<h3>createStore</h3>
+Redux’s createStore function takes up to three arguments: a reducer, an initial state, and an enhancer. In the case that only two arguments are passed, Redux presumes the second argument is an enhancer and there’s no initial state. Enhancers are a way to augment the Redux store and the devToolsEnhancer function is doing that: connecting the store with the Chrome extension to provide additional debugging features.
+
+<h3>redux-thunk</h3>
+redux-thunk middleware allows us to dispatch functions as well as the standard action objects. Within these functions, you’re safe to add any asynchronous code you might need. If you attempted to dispatch a function without the middleware applied, Redux would throw an error because it expects an object to be passed to dispatch.
+
+Within this dispatched function, you’re free to do the following:
+<ul>
+  <li>Make an AJAX request to fetch all tasks.</li>
+  <li>Access the store state.</li>
+  <li>Perform additional asynchronous logic.</li>
+  <li>Dispatch a synchronous action with a result.</li>
+</ul>
 
  <h3>mapStateToProps</h3>
  Note that the name mapStateToProps is a convention, not a requirement. The name stuck for a reason: because it’s an effective descriptor of the role of this function. State refers to the data in the store, and props are what get passed to the connected component. <strong>Whatever you return from mapStateToProps will be passed to your component as props.</strong>
