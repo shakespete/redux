@@ -6,15 +6,6 @@ export function uniqueId() {
   return uniqId;
 }
 
-const fetchTasksSucceeded = (tasks) => {
-  return {
-    type: "FETCH_TASKS_SUCCEEDED",
-    payload: {
-      tasks,
-    },
-  };
-};
-
 const createTaskSucceeded = (task) => {
   return {
     type: "CREATE_TASK_SUCCEEDED",
@@ -33,10 +24,29 @@ const editTaskSucceeded = (task) => {
   };
 };
 
+const fetchTasksStarted = () => {
+  return {
+    type: "FETCH_TASKS_STARTED",
+  };
+};
+
+const fetchTasksSucceeded = (tasks) => {
+  return {
+    type: "FETCH_TASKS_SUCCEEDED",
+    payload: {
+      tasks,
+    },
+  };
+};
+
 export function fetchTasks() {
   return (dispatch) => {
+    dispatch(fetchTasksStarted());
+
     api.fetchTasks().then((resp) => {
-      dispatch(fetchTasksSucceeded(resp.data));
+      setTimeout(() => {
+        dispatch(fetchTasksSucceeded(resp.data));
+      }, 2000);
     });
   };
 }
@@ -50,7 +60,7 @@ export function createTask({ title, description, status = "Unstarted" }) {
 }
 
 const getTaskById = (tasks, id) => {
-  return tasks.find((task) => task.id === id);
+  return tasks.tasks.find((task) => task.id === id);
 };
 
 export function editTask(id, params = {}) {

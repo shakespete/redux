@@ -4,10 +4,10 @@ import PropTypes from "prop-types";
 import TasksPage from "./components/TasksPage";
 import { createTask, editTask, fetchTasks } from "./actions";
 
-const App = ({ tasks, dispatch }) => {
+const App = ({ tasks, isLoading, dispatch }) => {
   useEffect(() => {
     dispatch(fetchTasks());
-  }, []);
+  }, [dispatch]);
 
   const onCreateTask = ({ title, description }) => {
     dispatch(createTask({ title, description }));
@@ -15,13 +15,13 @@ const App = ({ tasks, dispatch }) => {
   const onStatusChange = (id, status) => {
     dispatch(editTask(id, { status }));
   };
-
   return (
     <div className="main-content">
       <TasksPage
         tasks={tasks}
         createTask={onCreateTask}
         editStatus={onStatusChange}
+        loading={isLoading}
       />
     </div>
   );
@@ -36,6 +36,7 @@ App.defaultProps = {
       status: "",
     })
   ),
+  isLoading: false,
   dispatch: (f) => f,
 };
 App.propTypes = {
@@ -47,13 +48,17 @@ App.propTypes = {
       status: PropTypes.string,
     })
   ),
+  isLoading: PropTypes.bool,
   dispatch: PropTypes.func,
 };
 
 const mapStateToProps = ({ tasks }) => {
   return {
-    tasks,
+    tasks: tasks.tasks,
+    isLoading: tasks.isLoading,
   };
 };
 
 export default connect(mapStateToProps)(App);
+
+// json-server --watch db.json --port 3001

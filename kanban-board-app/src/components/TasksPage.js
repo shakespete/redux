@@ -4,7 +4,7 @@ import TaskList from "./TaskList";
 
 const TASK_STATUSES = ["Unstarted", "In Progress", "Completed"];
 
-const TasksPage = ({ tasks, createTask, editStatus }) => {
+const TasksPage = ({ tasks, createTask, editStatus, loading }) => {
   const [showNewCardForm, setShowNewCardForm] = useState(false);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -52,31 +52,37 @@ const TasksPage = ({ tasks, createTask, editStatus }) => {
 
   return (
     <div className="tasks">
-      <div className="task-list-header">
-        <button type="button" onClick={toggleForm}>
-          + New task
-        </button>
-      </div>
-      {showNewCardForm && (
-        <form className="task-list-form" onSubmit={onCreateTask}>
-          <input
-            className="full-width-input"
-            onChange={handleTitleChange}
-            value={title}
-            type="text"
-            placeholder="title"
-          />
-          <input
-            className="full-width-input"
-            onChange={handleDescriptionChange}
-            value={description}
-            type="text"
-            placeholder="description"
-          />
-          <button type="submit">Save</button>
-        </form>
+      {loading ? (
+        <div className="tasks-loading">Loading...</div>
+      ) : (
+        <>
+          <div className="task-list-header">
+            <button type="button" onClick={toggleForm}>
+              + New task
+            </button>
+          </div>
+          {showNewCardForm && (
+            <form className="task-list-form" onSubmit={onCreateTask}>
+              <input
+                className="full-width-input"
+                onChange={handleTitleChange}
+                value={title}
+                type="text"
+                placeholder="title"
+              />
+              <input
+                className="full-width-input"
+                onChange={handleDescriptionChange}
+                value={description}
+                type="text"
+                placeholder="description"
+              />
+              <button type="submit">Save</button>
+            </form>
+          )}
+          <div className="task-lists">{renderTaskLists()}</div>
+        </>
       )}
-      <div className="task-lists">{renderTaskLists()}</div>
     </div>
   );
 };
@@ -92,6 +98,7 @@ TasksPage.defaultProps = {
   ),
   createTask: (f) => f,
   editStatus: (f) => f,
+  loading: false,
 };
 TasksPage.propTypes = {
   tasks: PropTypes.arrayOf(
@@ -104,6 +111,7 @@ TasksPage.propTypes = {
   ),
   createTask: PropTypes.func,
   editStatus: PropTypes.func,
+  loading: PropTypes.bool,
 };
 
 export default TasksPage;
