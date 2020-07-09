@@ -98,3 +98,12 @@ Actions and action creators are closely related and work together to dispatch ac
 Why use action creators? Action creators have a friendlier interface; all you need to know is which arguments the action creator function expects. You won’t have to worry about specifics, such as the shape of the action’s payload or any logic that might need to be applied before the action can be dispatched. By the same token, an action creator’s arguments are helpful because they clearly document an action’s data requirements.
 
 You know you can’t do much without side effects. What you can do is isolate them by enforcing good practices around where they can be performed. Reducers must be pure functions, so they’re out. You guessed it, that leaves action creators!
+
+<h2>Middleware</h2>
+Redux middleware is code that sits between an action being dispatched and the store passing the action to the reducer and broadcasting the updated state.
+
+![alt text](https://github.com/shakespete/redux/blob/dev/img/middleware.jpg)
+
+Think of middleware as being “registered” with the store. When an action is dispatched, the store will know to pass that action through any middleware you’ve added. When the entire chain of middleware is complete, the action is finally passed to the reducers to calculate the updated state of the application.
+
+One of the key aspects of middleware is its ability to be chained, meaning multiple middleware can be applied to the store. Each middleware, after completing any work it may decide to do, invokes the next middleware in the chain. As a result, any middleware you create should be focused and have a single purpose, making them easier to combine and reuse in different contexts. 

@@ -65,5 +65,3 @@ const mapStateToProps = ({ tasks }) => {
 };
 
 export default connect(mapStateToProps)(App);
-
-// json-server --watch db.json --port 3001
