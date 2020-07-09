@@ -106,4 +106,22 @@ Redux middleware is code that sits between an action being dispatched and the st
 
 Think of middleware as being “registered” with the store. When an action is dispatched, the store will know to pass that action through any middleware you’ve added. When the entire chain of middleware is complete, the action is finally passed to the reducers to calculate the updated state of the application.
 
-One of the key aspects of middleware is its ability to be chained, meaning multiple middleware can be applied to the store. Each middleware, after completing any work it may decide to do, invokes the next middleware in the chain. As a result, any middleware you create should be focused and have a single purpose, making them easier to combine and reuse in different contexts. 
+One of the key aspects of middleware is its ability to be chained, meaning multiple middleware can be applied to the store. Each middleware, after completing any work it may decide to do, invokes the next middleware in the chain. As a result, any middleware you create should be focused and have a single purpose, making them easier to combine and reuse in different contexts.
+
+Function signature for Redux middleware:
+
+```
+const middlewareExample = store => next => action => { ... }
+
+OR
+
+function storeWrapper(store) {
+   return function middlewareWrapper(next) {
+      return function handleAction(action) {
+        ...
+      }
+   }
+}
+```
+
+The <strong>next</strong> command, provided to us by Redux, is a way to signify when this middleware has completed its work and it’s time to move on to the next middleware in the chain (if there is one). It’s effectively a wrapped version of dispatch, so it has an identical API. Ensure you’re always passing in the action argument whenever you call next within a middleware.
