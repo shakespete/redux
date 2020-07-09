@@ -102,7 +102,7 @@ You know you can’t do much without side effects. What you can do is isolate th
 <h2>Middleware</h2>
 Redux middleware is code that sits between an action being dispatched and the store passing the action to the reducer and broadcasting the updated state.
 
-![alt text](https://github.com/shakespete/redux/blob/dev/img/middleware.jpg)
+![alt text](https://github.com/shakespete/redux/blob/dev/img/middleware.png)
 
 Think of middleware as being “registered” with the store. When an action is dispatched, the store will know to pass that action through any middleware you’ve added. When the entire chain of middleware is complete, the action is finally passed to the reducers to calculate the updated state of the application.
 
