@@ -2,9 +2,10 @@ import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import TasksPage from "./components/TasksPage";
+import FlashMessage from "./components/FlashMessage";
 import { createTask, editTask, fetchTasks } from "./actions";
 
-const App = ({ tasks, isLoading, dispatch }) => {
+const App = ({ tasks, isLoading, error, dispatch }) => {
   useEffect(() => {
     dispatch(fetchTasks());
   }, [dispatch]);
@@ -17,6 +18,7 @@ const App = ({ tasks, isLoading, dispatch }) => {
   };
   return (
     <div className="main-content">
+      {error && <FlashMessage message={error} />}
       <TasksPage
         tasks={tasks}
         createTask={onCreateTask}
@@ -37,6 +39,7 @@ App.defaultProps = {
     })
   ),
   isLoading: false,
+  error: null,
   dispatch: (f) => f,
 };
 App.propTypes = {
@@ -49,6 +52,7 @@ App.propTypes = {
     })
   ),
   isLoading: PropTypes.bool,
+  error: PropTypes.string,
   dispatch: PropTypes.func,
 };
 
@@ -56,6 +60,7 @@ const mapStateToProps = ({ tasks }) => {
   return {
     tasks: tasks.tasks,
     isLoading: tasks.isLoading,
+    error: tasks.error,
   };
 };
 

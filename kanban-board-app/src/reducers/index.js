@@ -1,6 +1,7 @@
 const initialState = {
   tasks: [],
   isLoading: false,
+  error: null,
 };
 
 const tasks = (state = initialState, action) => {
@@ -33,6 +34,13 @@ const tasks = (state = initialState, action) => {
         ...state,
         isLoading: false,
         tasks: action.payload.tasks,
+      };
+    }
+    case "FETCH_TASKS_FAILED": {
+      return {
+        ...state,
+        isLoading: false,
+        error: action.payload.error,
       };
     }
     case "CREATE_TASK_SUCCEEDED": {

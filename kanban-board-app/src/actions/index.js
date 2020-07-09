@@ -39,15 +39,34 @@ const fetchTasksSucceeded = (tasks) => {
   };
 };
 
+const fetchTasksFailed = (error) => {
+  return {
+    type: "FETCH_TASKS_FAILED",
+    payload: {
+      error,
+    },
+  };
+};
+
 export function fetchTasks() {
   return (dispatch) => {
     dispatch(fetchTasksStarted());
 
-    api.fetchTasks().then((resp) => {
-      setTimeout(() => {
-        dispatch(fetchTasksSucceeded(resp.data));
-      }, 2000);
-    });
+    try {
+      api
+        .fetchTasks()
+        .then((resp) => {
+          setTimeout(() => {
+            dispatch(fetchTasksSucceeded(resp.data));
+          }, 2000);
+          // throw new Error("Oh noes! Unable to fetch tasks!");
+        })
+        .catch((err) => {
+          dispatch(fetchTasksFailed(err.message));
+        });
+    } catch (error) {
+      console.log(error);
+    }
   };
 }
 
