@@ -4,6 +4,8 @@ import { createStore, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
 import thunk from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
+import createSagaMiddleware from "redux-saga";
+import rootSaga from "./sagas";
 import logger from "./middleware/logger";
 import tasksReducer from "./reducers";
 import App from "./App";
@@ -15,10 +17,14 @@ const rootReducer = (state = {}, action) => {
   };
 };
 
+const sagaMiddleware = createSagaMiddleware();
+
 const store = createStore(
   rootReducer,
-  composeWithDevTools(applyMiddleware(thunk, logger))
+  composeWithDevTools(applyMiddleware(thunk, logger, sagaMiddleware))
 );
+
+sagaMiddleware.run(rootSaga);
 
 ReactDOM.render(
   <React.StrictMode>

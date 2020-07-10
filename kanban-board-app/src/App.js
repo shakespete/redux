@@ -3,11 +3,11 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import TasksPage from "./components/TasksPage";
 import FlashMessage from "./components/FlashMessage";
-import { createTask, editTask, fetchTasks } from "./actions";
+import { createTask, editTask, fetchTasksStarted } from "./actions";
 
 const App = ({ tasks, isLoading, error, dispatch }) => {
   useEffect(() => {
-    dispatch(fetchTasks());
+    dispatch(fetchTasksStarted());
   }, [dispatch]);
 
   const onCreateTask = ({ title, description }) => {
