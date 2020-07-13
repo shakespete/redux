@@ -4,19 +4,36 @@
       "id": 1,
       "title": "Learn Redux",
       "description": "The store, actions, and reducers, oh my!",
-      "status": "Completed"
+      "status": "Completed",
+      "timer": 42
     },
     {
       "id": 2,
       "title": "Peace on Earth",
       "description": "No big deal.",
-      "status": "Completed"
+      "status": "Unstarted",
+      "timer": 7
     },
     {
       "id": 3,
       "title": "Create Facebook for dogs",
       "description": "The hottest new social network",
-      "status": "Unstarted"
+      "status": "Unstarted",
+      "timer": 0
+    },
+    {
+      "title": "A",
+      "description": "aaaaaa",
+      "status": "Unstarted",
+      "id": 4,
+      "timer": null
+    },
+    {
+      "title": "B",
+      "description": "bbbbbb",
+      "status": "Completed",
+      "timer": 3,
+      "id": 5
     }
   ]
 }

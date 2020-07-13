@@ -125,3 +125,9 @@ function storeWrapper(store) {
 ```
 
 The <strong>next</strong> command, provided to us by Redux, is a way to signify when this middleware has completed its work and it’s time to move on to the next middleware in the chain (if there is one). It’s effectively a wrapped version of dispatch, so it has an identical API. Ensure you’re always passing in the action argument whenever you call next within a middleware.
+
+When is it a good idea to use middleware? For us, there are two golden rules:
+<ul>
+  <li>Use middleware if you need to write code that applies across many, if not all, actions in the application. Logging is maybe the most classic example.</li>
+  <li>But, use middleware only if the indirection caused by the middleware isn’t overly damaging to the readability and understandability of the code.</li>
+</ul>
