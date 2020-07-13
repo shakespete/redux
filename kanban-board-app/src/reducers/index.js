@@ -17,17 +17,28 @@ const tasks = (state = initialState, action) => {
         }
         return task;
       });
-
       return {
         ...state,
         tasks: nextTasks,
-      }
+      };
+    }
+    case "TIMER_INCREMENT": {
+      const nextTasks = state.tasks.map((task) => {
+        if (task.id === action.payload.taskId) {
+          return { ...task, timer: task.timer + 1 };
+        }
+        return task;
+      });
+      return {
+        ...state,
+        tasks: nextTasks,
+      };
     }
     case "FETCH_TASKS_STARTED": {
       return {
         ...state,
         isLoading: true,
-      }
+      };
     }
     case "FETCH_TASKS_SUCCEEDED": {
       return {

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
+import CircleLoader from "react-spinners/CircleLoader";
 import TaskList from "./TaskList";
 
 const TASK_STATUSES = ["Unstarted", "In Progress", "Completed"];
@@ -53,7 +54,7 @@ const TasksPage = ({ tasks, createTask, editStatus, loading }) => {
   return (
     <div className="tasks">
       {loading ? (
-        <div className="tasks-loading">Loading...</div>
+        <CircleLoader />
       ) : (
         <>
           <div className="task-list-header">
@@ -94,6 +95,7 @@ TasksPage.defaultProps = {
       title: "",
       description: "",
       status: "",
+      timer: 0,
     })
   ),
   createTask: (f) => f,
@@ -107,6 +109,7 @@ TasksPage.propTypes = {
       title: PropTypes.string,
       description: PropTypes.string,
       status: PropTypes.string,
+      timer: PropTypes.number,
     })
   ),
   createTask: PropTypes.func,

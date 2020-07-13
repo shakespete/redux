@@ -36,6 +36,7 @@ App.defaultProps = {
       title: "",
       description: "",
       status: "",
+      timer: 0,
     })
   ),
   isLoading: false,
@@ -49,6 +50,7 @@ App.propTypes = {
       title: PropTypes.string,
       description: PropTypes.string,
       status: PropTypes.string,
+      timer: PropTypes.number,
     })
   ),
   isLoading: PropTypes.bool,

@@ -3,7 +3,10 @@ import PropTypes from "prop-types";
 
 const TASK_STATUSES = ["Unstarted", "In Progress", "Completed"];
 
-const Task = ({ task: { id, title, description, status }, statusChange }) => {
+const Task = ({
+  task: { id, title, description, status, timer },
+  statusChange,
+}) => {
   const onStatusChange = (e) => {
     statusChange(id, e.target.value);
   };
@@ -22,6 +25,7 @@ const Task = ({ task: { id, title, description, status }, statusChange }) => {
       </div>
       <hr />
       <div className="task-body">{description}</div>
+      <div className="task-timer">{timer}s</div>
     </div>
   );
 };
@@ -32,6 +36,7 @@ Task.defaultProps = {
     title: "",
     description: "",
     status: "",
+    timer: 0,
   }),
   statusChange: (f) => f,
 };
@@ -41,6 +46,7 @@ Task.propTypes = {
     title: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
     status: PropTypes.string.isRequired,
+    timer: PropTypes.number.isRequired,
   }),
   statusChange: PropTypes.func,
 };

@@ -48,10 +48,19 @@ const editTaskSucceeded = (task) => {
   };
 };
 
+const progressTimerStart = (taskId) => {
+  return {
+    type: "TIMER_STARTED",
+    payload: {
+      taskId,
+    },
+  };
+};
+
 /* --------------------------------------- THUNKS --------------------------------------- */
 
 /**
- * Not used anymore.
+ * fetchTasks NOT used anymore.
  * Used saga instead of thunks
  */
 export function fetchTasks() {
@@ -68,7 +77,7 @@ export function fetchTasks() {
         .then((resp) => {
           setTimeout(() => {
             dispatch(fetchTasksSucceeded(resp.data));
-          }, 2000);
+          }, 3000);
           // throw new Error("Oh noes! Unable to fetch tasks!");
         })
         .catch((err) => {
@@ -101,6 +110,9 @@ export function editTask(id, params = {}) {
     };
     api.editTask(id, updatedTask).then((resp) => {
       dispatch(editTaskSucceeded(resp.data));
+      if (resp.data.status === "In Progress") {
+        dispatch(progressTimerStart(resp.data.id));
+      }
     });
   };
 }
