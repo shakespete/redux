@@ -1,4 +1,5 @@
-import { call, put, delay, takeEvery, takeLatest } from "redux-saga/effects";
+import { channel } from "redux-saga";
+import { call, delay, put, take, takeLatest } from "redux-saga/effects";
 import * as api from "../api";
 
 function* fetchTasks() {
@@ -18,13 +19,31 @@ function* fetchTasks() {
   }
 }
 
-function* handleProgressTimer({ payload }) {
+function* handleProgressTimer({ payload, type }) {
+  if (type === "TIMER_STARTED") {
+    while (true) {
+      yield delay(1000);
+      yield put({
+        type: "TIMER_INCREMENT",
+        payload: { taskId: payload.taskId },
+      });
+    }
+  }
+}
+
+function* takeLatestById(actionType, saga) {
+  const channelsMap = {};
+
   while (true) {
-    yield delay(1000);
-    yield put({
-      type: "TIMER_INCREMENT",
-      payload: { taskId: payload.taskId },
-    });
+    const action = yield take(actionType);
+    const { taskId } = action.payload;
+
+    if (!channelsMap[taskId]) {
+      channelsMap[taskId] = channel();
+      yield takeLatest(channelsMap[taskId], saga);
+    }
+
+    yield put(channelsMap[taskId], action);
   }
 }
 
@@ -41,5 +60,5 @@ function* handleProgressTimer({ payload }) {
 export default function* rootSaga() {
   console.log("%cwatchers started", "color: green");
   yield takeLatest("FETCH_TASKS_STARTED", fetchTasks);
-  yield takeEvery("TIMER_STARTED", handleProgressTimer);
+  yield takeLatestById(["TIMER_STARTED", "TIMER_STOPPED"], handleProgressTimer);
 }

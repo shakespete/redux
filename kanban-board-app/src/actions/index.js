@@ -57,6 +57,15 @@ const progressTimerStart = (taskId) => {
   };
 };
 
+const progressTimerStop = (taskId) => {
+  return {
+    type: "TIMER_STOPPED",
+    payload: {
+      taskId,
+    },
+  };
+};
+
 /* --------------------------------------- THUNKS --------------------------------------- */
 
 /**
@@ -89,9 +98,14 @@ export function fetchTasks() {
   };
 }
 
-export function createTask({ title, description, status = "Unstarted" }) {
+export function createTask({
+  title,
+  description,
+  status = "Unstarted",
+  timer = 0,
+}) {
   return (dispatch) => {
-    api.createTask({ title, description, status }).then((resp) => {
+    api.createTask({ title, description, status, timer }).then((resp) => {
       dispatch(createTaskSucceeded(resp.data));
     });
   };
@@ -112,6 +126,10 @@ export function editTask(id, params = {}) {
       dispatch(editTaskSucceeded(resp.data));
       if (resp.data.status === "In Progress") {
         dispatch(progressTimerStart(resp.data.id));
+      }
+      if (task.status === "In Progress") {
+        // Stops the timer if the task was “In Progress” prior to updating
+        dispatch(progressTimerStop(resp.data.id));
       }
     });
   };
