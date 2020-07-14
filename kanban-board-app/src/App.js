@@ -3,7 +3,13 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import TasksPage from "./components/TasksPage";
 import FlashMessage from "./components/FlashMessage";
-import { createTask, editTask, fetchTasksStarted } from "./actions";
+import { getFilteredTasks } from "./reducers";
+import {
+  createTask,
+  editTask,
+  fetchTasksStarted,
+  filterTasks,
+} from "./actions";
 
 const App = ({ tasks, isLoading, error, dispatch }) => {
   useEffect(() => {
@@ -16,12 +22,17 @@ const App = ({ tasks, isLoading, error, dispatch }) => {
   const onStatusChange = (id, status) => {
     dispatch(editTask(id, { status }));
   };
+  const onSearch = (searchTerm) => {
+    dispatch(filterTasks(searchTerm));
+  };
+
   return (
     <div className="main-content">
       {error && <FlashMessage message={error} />}
       <TasksPage
         tasks={tasks}
         createTask={onCreateTask}
+        searchTask={onSearch}
         editStatus={onStatusChange}
         loading={isLoading}
       />
@@ -60,9 +71,10 @@ App.propTypes = {
 
 const mapStateToProps = ({ tasks }) => {
   return {
-    tasks: tasks.tasks,
+    tasks: getFilteredTasks(tasks.tasks, tasks.searchTerm),
     isLoading: tasks.isLoading,
     error: tasks.error,
+    searchTerm: tasks.searchTerm,
   };
 };
 

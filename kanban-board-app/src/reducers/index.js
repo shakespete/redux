@@ -2,10 +2,23 @@ const initialState = {
   tasks: [],
   isLoading: false,
   error: null,
+  searchTerm: "",
 };
 
-const tasks = (state = initialState, action) => {
+export function getFilteredTasks(tasks, searchTerm) {
+  return tasks.filter((task) => {
+    return task.title.match(new RegExp(searchTerm, "i"));
+  });
+}
+
+export const tasksReducer = (state = initialState, action) => {
   switch (action.type) {
+    case "FILTER_TASKS": {
+      return {
+        ...state,
+        searchTerm: action.payload.searchTerm,
+      };
+    }
     case "CREATE_TASK": {
       return { tasks: state.tasks.concat(action.payload) };
     }
@@ -65,5 +78,3 @@ const tasks = (state = initialState, action) => {
     }
   }
 };
-
-export default tasks;

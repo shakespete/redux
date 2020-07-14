@@ -5,7 +5,7 @@ import TaskList from "./TaskList";
 
 const TASK_STATUSES = ["Unstarted", "In Progress", "Completed"];
 
-const TasksPage = ({ tasks, createTask, editStatus, loading }) => {
+const TasksPage = ({ tasks, createTask, searchTask, editStatus, loading }) => {
   const [showNewCardForm, setShowNewCardForm] = useState(false);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -51,6 +51,10 @@ const TasksPage = ({ tasks, createTask, editStatus, loading }) => {
     });
   };
 
+  const onSearch = (e) => {
+    searchTask(e.target.value);
+  };
+
   return (
     <div className="tasks">
       {loading ? (
@@ -58,6 +62,7 @@ const TasksPage = ({ tasks, createTask, editStatus, loading }) => {
       ) : (
         <>
           <div className="task-list-header">
+            <input onChange={onSearch} type="text" placeholder="Search..." />
             <button type="button" onClick={toggleForm}>
               + New task
             </button>
@@ -99,6 +104,7 @@ TasksPage.defaultProps = {
     })
   ),
   createTask: (f) => f,
+  searchTask: (f) => f,
   editStatus: (f) => f,
   loading: false,
 };
@@ -113,6 +119,7 @@ TasksPage.propTypes = {
     })
   ),
   createTask: PropTypes.func,
+  searchTask: PropTypes.func,
   editStatus: PropTypes.func,
   loading: PropTypes.bool,
 };

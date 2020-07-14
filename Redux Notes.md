@@ -131,3 +131,12 @@ When is it a good idea to use middleware? For us, there are two golden rules:
   <li>Use middleware if you need to write code that applies across many, if not all, actions in the application. Logging is maybe the most classic example.</li>
   <li>But, use middleware only if the indirection caused by the middleware isn’t overly damaging to the readability and understandability of the code.</li>
 </ul>
+
+<h2>Selectors</h2>
+Selectors are functions that accept a state from the Redux store and compute data that will eventually be passed as props to React. They’re pure functions, meaning they don’t produce any side effects.
+
+Selectors, like all programming concepts, exist to solve a problem. The problem: without selectors, components would be coupled directly to the shape of the Redux store. If the structure of the store changes, you must update every component that may have relied on that structure. Your end goal is to write your React components in a way that if the Redux structure changes, you won’t need to update any of the components as a result. You lock in an interface at the component level and let code upstream take care of the changing shape of the data.
+
+The opportunity to derive data before making it available to a connected component is in the mapStateToProps function. Recall that mapStateToProps is where you add any plumbing code that bridges the gap between data in Redux and data that ultimately makes it into the component tree as props. It’s where selectors in general should be applied.
+
+![alt text](https://github.com/shakespete/redux/blob/dev/img/selectors.png)

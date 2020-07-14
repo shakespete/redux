@@ -66,6 +66,15 @@ const progressTimerStop = (taskId) => {
   };
 };
 
+export const filterTasks = (searchTerm) => {
+  return {
+    type: "FILTER_TASKS",
+    payload: {
+      searchTerm,
+    },
+  };
+};
+
 /* --------------------------------------- THUNKS --------------------------------------- */
 
 /**
