@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import TasksPage from "./components/TasksPage";
 import FlashMessage from "./components/FlashMessage";
-import { getFilteredTasks } from "./reducers";
+import { getGroupedAndFilteredTasks } from "./reducers";
 import {
   createTask,
   editTask,
@@ -41,40 +41,24 @@ const App = ({ tasks, isLoading, error, dispatch }) => {
 };
 
 App.defaultProps = {
-  tasks: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: -1,
-      title: "",
-      description: "",
-      status: "",
-      timer: 0,
-    })
-  ),
+  tasks: {},
   isLoading: false,
   error: null,
   dispatch: (f) => f,
 };
 App.propTypes = {
-  tasks: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number,
-      title: PropTypes.string,
-      description: PropTypes.string,
-      status: PropTypes.string,
-      timer: PropTypes.number,
-    })
-  ),
+  tasks: PropTypes.objectOf(PropTypes.array),
   isLoading: PropTypes.bool,
   error: PropTypes.string,
   dispatch: PropTypes.func,
 };
 
-const mapStateToProps = ({ tasks }) => {
+const mapStateToProps = (state) => {
+  const { isLoading, error } = state.tasks;
   return {
-    tasks: getFilteredTasks(tasks.tasks, tasks.searchTerm),
-    isLoading: tasks.isLoading,
-    error: tasks.error,
-    searchTerm: tasks.searchTerm,
+    tasks: getGroupedAndFilteredTasks(state),
+    isLoading,
+    error,
   };
 };
 

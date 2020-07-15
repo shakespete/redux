@@ -3,8 +3,6 @@ import PropTypes from "prop-types";
 import CircleLoader from "react-spinners/CircleLoader";
 import TaskList from "./TaskList";
 
-const TASK_STATUSES = ["Unstarted", "In Progress", "Completed"];
-
 const TasksPage = ({ tasks, createTask, searchTask, editStatus, loading }) => {
   const [showNewCardForm, setShowNewCardForm] = useState(false);
   const [title, setTitle] = useState("");
@@ -38,13 +36,13 @@ const TasksPage = ({ tasks, createTask, searchTask, editStatus, loading }) => {
   };
 
   const renderTaskLists = () => {
-    return TASK_STATUSES.map((status) => {
-      const statusTasks = tasks.filter((task) => task.status === status);
+    return Object.keys(tasks).map((status) => {
+      const tasksByStatus = tasks[status];
       return (
         <TaskList
           key={status}
           status={status}
-          tasks={statusTasks}
+          tasks={tasksByStatus}
           onStatusChange={editStatus}
         />
       );
@@ -94,30 +92,14 @@ const TasksPage = ({ tasks, createTask, searchTask, editStatus, loading }) => {
 };
 
 TasksPage.defaultProps = {
-  tasks: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: -1,
-      title: "",
-      description: "",
-      status: "",
-      timer: 0,
-    })
-  ),
+  tasks: {},
   createTask: (f) => f,
   searchTask: (f) => f,
   editStatus: (f) => f,
   loading: false,
 };
 TasksPage.propTypes = {
-  tasks: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number,
-      title: PropTypes.string,
-      description: PropTypes.string,
-      status: PropTypes.string,
-      timer: PropTypes.number,
-    })
-  ),
+  tasks: PropTypes.objectOf(PropTypes.array),
   createTask: PropTypes.func,
   searchTask: PropTypes.func,
   editStatus: PropTypes.func,
