@@ -2,20 +2,32 @@ import { channel } from "redux-saga";
 import { call, delay, put, take, takeLatest } from "redux-saga/effects";
 import * as api from "../api";
 
+const fetchTasksSucceeded = (tasks) => {
+  return {
+    type: "FETCH_TASKS_SUCCEEDED",
+    payload: {
+      tasks,
+    },
+  };
+};
+
+const fetchTasksFailed = (error) => {
+  return {
+    type: "FETCH_TASKS_FAILED",
+    payload: {
+      error,
+    },
+  };
+};
+
 function* fetchTasksSaga() {
   try {
     yield delay(3000);
     const { data } = yield call(api.fetchTasks);
     // put is used to dispatch an action.
-    yield put({
-      type: "FETCH_TASKS_SUCCEEDED",
-      payload: { tasks: data },
-    });
+    yield put(fetchTasksSucceeded(data));
   } catch (e) {
-    yield put({
-      type: "FETCH_TASKS_FAILED",
-      payload: { error: e.message },
-    });
+    yield put(fetchTasksFailed(e.message));
   }
 }
 

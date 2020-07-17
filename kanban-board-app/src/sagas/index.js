@@ -8,8 +8,6 @@ import tasksSaga from "./tasks";
  * Each of these forks are said to be non-blocking. This implementation makes
  * sense, because you want to kick off all the watchers at initialization,
  * not only the first in the list.
- *
- * takeLatest is creating a fork with extra functionality.
  */
 export default function* rootSaga() {
   yield fork(tasksSaga);

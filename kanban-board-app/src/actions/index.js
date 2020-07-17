@@ -1,32 +1,9 @@
 import * as api from "../api";
 
-let uniqId = 1;
-export function uniqueId() {
-  uniqId += 1;
-  return uniqId;
-}
-
+/** TASKS */
 export const fetchTasksStarted = () => {
   return {
     type: "FETCH_TASKS_STARTED",
-  };
-};
-
-const fetchTasksSucceeded = (tasks) => {
-  return {
-    type: "FETCH_TASKS_SUCCEEDED",
-    payload: {
-      tasks,
-    },
-  };
-};
-
-const fetchTasksFailed = (error) => {
-  return {
-    type: "FETCH_TASKS_FAILED",
-    payload: {
-      error,
-    },
   };
 };
 
@@ -80,13 +57,13 @@ export const filterTasks = (searchTerm) => {
 /**
  * fetchTasks NOT used anymore.
  * Used fetchTasksSaga instead of fetchTasks thunks
- */
+ 
 export function fetchTasks() {
-  /**
+  
    * Within the fetchTasks action creator, an anonymous function (thunk) is returned.
    * The thunk middleware provides the dispatch and getState arguments, so the body of
    * the function can view the contents of the current store and dispatch new actions
-   * to indicate loading, success, or failure states. */
+   * to indicate loading, success, or failure states.
   return (dispatch) => {
     dispatch(fetchTasksStarted());
     try {
@@ -106,6 +83,7 @@ export function fetchTasks() {
     }
   };
 }
+*/
 
 export function createTask({
   title,
