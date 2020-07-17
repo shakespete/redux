@@ -79,7 +79,7 @@ export const filterTasks = (searchTerm) => {
 
 /**
  * fetchTasks NOT used anymore.
- * Used saga instead of thunks
+ * Used fetchTasksSaga instead of fetchTasks thunks
  */
 export function fetchTasks() {
   /**
