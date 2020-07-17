@@ -70,7 +70,7 @@ function* takeLatestById(actionType, saga) {
  * takeLatest is creating a fork with extra functionality.
  */
 export default function* tasksSaga() {
-  console.log("%cTasks sagas started", "color: green");
+  console.log("%cTasks sagas started", "color: #8fbd6b");
   yield takeLatest("FETCH_TASKS_STARTED", fetchTasksSaga);
   yield takeLatestById(
     ["TIMER_STARTED", "TIMER_STOPPED"],

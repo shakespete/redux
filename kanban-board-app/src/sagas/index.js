@@ -1,5 +1,6 @@
 import { fork } from "redux-saga/effects";
 import tasksSaga from "./tasks";
+import projectsSaga from "./projects";
 
 /**
  * What’s fork doing here? When rootSaga executes, it’s going to pause at
@@ -11,4 +12,5 @@ import tasksSaga from "./tasks";
  */
 export default function* rootSaga() {
   yield fork(tasksSaga);
+  yield fork(projectsSaga);
 }

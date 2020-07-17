@@ -7,12 +7,14 @@ import { getGroupedAndFilteredTasks } from "./reducers";
 import {
   createTask,
   editTask,
+  fetchProjectsStarted,
   fetchTasksStarted,
   filterTasks,
 } from "./actions";
 
 const App = ({ tasks, isLoading, error, dispatch }) => {
   useEffect(() => {
+    dispatch(fetchProjectsStarted());
     dispatch(fetchTasksStarted());
   }, [dispatch]);
 

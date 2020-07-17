@@ -1,45 +1,19 @@
 import * as api from "../api";
 
+/** PROJECTS */
+export const fetchProjectsStarted = (boards) => {
+  return {
+    type: "FETCH_PROJECTS_STARTED",
+    payload: {
+      boards,
+    },
+  };
+}
+
 /** TASKS */
 export const fetchTasksStarted = () => {
   return {
     type: "FETCH_TASKS_STARTED",
-  };
-};
-
-const createTaskSucceeded = (task) => {
-  return {
-    type: "CREATE_TASK_SUCCEEDED",
-    payload: {
-      task,
-    },
-  };
-};
-
-const editTaskSucceeded = (task) => {
-  return {
-    type: "EDIT_TASK_SUCCEEDED",
-    payload: {
-      task,
-    },
-  };
-};
-
-const progressTimerStart = (taskId) => {
-  return {
-    type: "TIMER_STARTED",
-    payload: {
-      taskId,
-    },
-  };
-};
-
-const progressTimerStop = (taskId) => {
-  return {
-    type: "TIMER_STOPPED",
-    payload: {
-      taskId,
-    },
   };
 };
 
@@ -84,6 +58,42 @@ export function fetchTasks() {
   };
 }
 */
+
+const createTaskSucceeded = (task) => {
+  return {
+    type: "CREATE_TASK_SUCCEEDED",
+    payload: {
+      task,
+    },
+  };
+};
+
+const editTaskSucceeded = (task) => {
+  return {
+    type: "EDIT_TASK_SUCCEEDED",
+    payload: {
+      task,
+    },
+  };
+};
+
+const progressTimerStart = (taskId) => {
+  return {
+    type: "TIMER_STARTED",
+    payload: {
+      taskId,
+    },
+  };
+};
+
+const progressTimerStop = (taskId) => {
+  return {
+    type: "TIMER_STOPPED",
+    payload: {
+      taskId,
+    },
+  };
+};
 
 export function createTask({
   title,
