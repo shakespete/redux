@@ -68,6 +68,23 @@ const createTaskSucceeded = (task) => {
   };
 };
 
+export function createTask({
+  title,
+  description,
+  status = "Unstarted",
+  timer = 0,
+}) {
+  return (dispatch) => {
+    api.createTask({ title, description, status, timer }).then((resp) => {
+      dispatch(createTaskSucceeded(resp.data));
+    });
+  };
+}
+
+const getTaskById = (tasks, id) => {
+  return tasks.tasks.find((task) => task.id === id);
+};
+
 const editTaskSucceeded = (task) => {
   return {
     type: "EDIT_TASK_SUCCEEDED",
@@ -93,23 +110,6 @@ const progressTimerStop = (taskId) => {
       taskId,
     },
   };
-};
-
-export function createTask({
-  title,
-  description,
-  status = "Unstarted",
-  timer = 0,
-}) {
-  return (dispatch) => {
-    api.createTask({ title, description, status, timer }).then((resp) => {
-      dispatch(createTaskSucceeded(resp.data));
-    });
-  };
-}
-
-const getTaskById = (tasks, id) => {
-  return tasks.tasks.find((task) => task.id === id);
 };
 
 export function editTask(id, params = {}) {

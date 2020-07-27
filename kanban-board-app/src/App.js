@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import TasksPage from "./components/TasksPage";
 import FlashMessage from "./components/FlashMessage";
-import { getGroupedAndFilteredTasks } from "./reducers";
+import { getGroupedAndFilteredTasks } from "./selectors/taskSelectors";
 import {
   createTask,
   editTask,

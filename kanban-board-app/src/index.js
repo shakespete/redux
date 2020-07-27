@@ -7,20 +7,14 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import createSagaMiddleware from "redux-saga";
 import rootSaga from "./sagas";
 import logger from "./middleware/logger";
-import { tasksReducer } from "./reducers";
+import reducer from "./reducers";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
-
-const rootReducer = (state = {}, action) => {
-  return {
-    tasks: tasksReducer(state.tasks, action),
-  };
-};
 
 const sagaMiddleware = createSagaMiddleware();
 
 const store = createStore(
-  rootReducer,
+  reducer,
   composeWithDevTools(applyMiddleware(thunk, logger, sagaMiddleware))
 );
 
