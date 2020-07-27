@@ -8,7 +8,16 @@ export const fetchProjectsStarted = (boards) => {
       boards,
     },
   };
-}
+};
+
+export const setCurrentProjectId = (id) => {
+  return {
+    type: "SET_CURRENT_PROJECT_ID",
+    payload: {
+      id,
+    },
+  };
+};
 
 /** TASKS */
 export const fetchTasksStarted = () => {
