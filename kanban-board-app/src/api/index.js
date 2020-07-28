@@ -9,6 +9,7 @@ const client = axios.create({
   },
 });
 
+/* TASKS */
 export function fetchTasks() {
   return client.get("/tasks");
 }
@@ -21,6 +22,7 @@ export function editTask(id, params) {
   return client.put(`${API_BASE_URL}/tasks/${id}`, params);
 }
 
+/* PROJECTS */
 export function fetchProjects() {
-  return client.get("/projects");
+  return client.get("/projects?_embed=tasks");
 }

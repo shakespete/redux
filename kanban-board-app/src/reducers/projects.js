@@ -16,7 +16,7 @@ export default function projects(state = initialState, action) {
       return {
         ...state,
         isLoading: false,
-        projects: action.payload.projects,
+        items: action.payload.projects,
       };
     }
     case "FETCH_PROJECTS_FAILED": {

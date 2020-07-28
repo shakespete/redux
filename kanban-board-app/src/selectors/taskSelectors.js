@@ -1,11 +1,22 @@
 import { createSelector } from "reselect";
 import { TASK_STATUSES } from "../constants";
 
-const getTasks = (state) => state.tasks.tasks;
 const getSearchTerm = (state) => state.tasks.searchTerm;
 
+const getTasksByProjectId = (state) => {
+  if (!state.page.currentProjectId) {
+    return [];
+  }
+
+  const currentProject = state.projects.items.find(
+    (project) => project.id === state.page.currentProjectId
+  );
+
+  return currentProject.tasks;
+};
+
 export const getFilteredTasks = createSelector(
-  [getTasks, getSearchTerm],
+  [getTasksByProjectId, getSearchTerm],
   (tasks, searchTerm) => {
     return tasks.filter((task) =>
       task.title.match(new RegExp(searchTerm, "i"))
