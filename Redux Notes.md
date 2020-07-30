@@ -140,3 +140,12 @@ Selectors, like all programming concepts, exist to solve a problem. The problem:
 The opportunity to derive data before making it available to a connected component is in the mapStateToProps function. Recall that mapStateToProps is where you add any plumbing code that bridges the gap between data in Redux and data that ultimately makes it into the component tree as props. It’s where selectors in general should be applied.
 
 ![alt text](https://github.com/shakespete/redux/blob/dev/img/selectors.png)
+
+<h2>Performance</h2>
+User Timing API feature is implemented by many browsers to visualize the component lifecycle of React components. Using this tool couldn’t be any simpler, requiring you add ?react_perf to the end of your URL.
+
+Each orange-colored bar represents a component process. You’ll find the component name, as well as the lifecycle method taking place, listed within each of the bars. A stacked list of bars indicates one component tree’s sequence of updates.
+
+![alt text](https://github.com/shakespete/redux/blob/dev/img/perf_timeline.png)
+
+The depth of the graph is often a dead giveaway for unnecessary rendering. Each time a component renders, a new row is added to the graph. If something caused a component to re-render multiple times, this graphical representation makes it much easier to diagnose. It also keeps an eye on how long each component needs to render. The longer the row, the longer a component takes to render. Use this feature to profile different pages of your application and see if anything stands out as particularly problematic.
