@@ -30,9 +30,9 @@
       "id": 3,
       "title": "Create Facebook for dogs",
       "description": "The hottest new social network",
-      "status": "Completed",
-      "timer": 10,
+      "status": "Unstarted",
+      "timer": 13,
       "projectId": 1
-    }
+    },
   ]
 }

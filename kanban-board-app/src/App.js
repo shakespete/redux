@@ -17,7 +17,7 @@ import {
 const App = ({ tasks, projects, isLoading, error, dispatch }) => {
   useEffect(() => {
     dispatch(fetchProjectsStarted());
-    // dispatch(fetchTasksStarted());
+    dispatch(fetchTasksStarted());
   }, [dispatch]);
 
   const onCurrentProjectChange = (e) => {

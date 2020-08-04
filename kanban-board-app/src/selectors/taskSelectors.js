@@ -1,6 +1,7 @@
 import { createSelector } from "reselect";
 import { TASK_STATUSES } from "../constants";
 
+const getTasks = (state) => state.tasks.tasks;
 const getSearchTerm = (state) => state.tasks.searchTerm;
 
 const getTasksByProjectId = (state) => {
@@ -16,7 +17,8 @@ const getTasksByProjectId = (state) => {
 };
 
 export const getFilteredTasks = createSelector(
-  [getTasksByProjectId, getSearchTerm],
+  // [getTasksByProjectId, getSearchTerm],
+  [getTasks, getSearchTerm],
   (tasks, searchTerm) => {
     return tasks.filter((task) =>
       task.title.match(new RegExp(searchTerm, "i"))
